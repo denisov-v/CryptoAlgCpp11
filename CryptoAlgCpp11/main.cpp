@@ -4,6 +4,7 @@
 #include <omp.h>
 #include <cstdio>
 #include <ctime>
+#include <sstream>
 
 using blong::biglong;
 
@@ -43,7 +44,7 @@ bool RabinMiller(const biglong& n, const biglong& base)
 	return 0;
 }
 
-biglong RoPollard(const biglong& n, const biglong& coeff, const biglong& seed)
+biglong RhoPollard(const biglong& n, const biglong& coeff, const biglong& seed)
 {
 	if(!n.isOdd()) return biglong::two;
 
@@ -75,15 +76,7 @@ biglong RoPollard(const biglong& n, const biglong& coeff, const biglong& seed)
 
 int main()
 {
-	/*cout << hex_to_dec_str((biglong(dec_to_hex_str("11247384611"))
-		*biglong(dec_to_hex_str("71318207813"))
-		*biglong(dec_to_hex_str("10918474913"))).toString()) << endl;*/
-	
-	/*biglong n = biglong(dec_to_hex_str("11247384611"))
-		*biglong(dec_to_hex_str("71318207813"))
-		*biglong(dec_to_hex_str("10918474913"));*/
-
-	biglong n = biglong(util::dec_to_hex_str("10850315432251565671"));
+	biglong n = biglong(util::dec_to_hex_str("8758181640058340640277655505359"));
 	std::cout << "n = " << util::hex_to_dec_str(n.to_string()) << std::endl;
 
 	/*std::string n_str;
@@ -96,23 +89,31 @@ int main()
 		
 	srand(static_cast<unsigned int>(time(nullptr)));
 	biglong* random = new biglong[3*num_procs];
-	for(int i=0; i < 3*(num_procs); ++i)
+	for(int i=0; i < 3*(num_procs); ++i)	
 		random[i] = biglong::get_random(n.trunc_sub(biglong::one))+1;
-
+		
 #pragma omp parallel shared(random, n)
 	{
 		int thread_num = omp_get_thread_num();
-		char buffer [10];
-		sprintf_s(buffer, "%d", thread_num);
-		std::string thread_num_str = std::string(buffer);
+		std::stringstream strstream;
 
 		if(RabinMiller(n, random[thread_num])==0)
 		{			
-			std::cout << "thread " + thread_num_str + ": composite\n";
-			std::cout << "thread " + thread_num_str + ": divider = " + util::hex_to_dec_str(
-				RoPollard(n, random[thread_num+1], random[thread_num+2]).to_string()) + "\n";
+			strstream << "thread " << thread_num << ": composite" << std::endl;
+			std::cout << strstream.str();
+			strstream.str(std::string());
+			strstream.clear();
+
+			double rho_start_time = omp_get_wtime();
+			biglong divider = RhoPollard(n, random[thread_num+1], random[thread_num+2]);
+			double rho_end_time = omp_get_wtime();
+
+			strstream << "thread " << thread_num << ": divider = " << util::hex_to_dec_str(divider.to_string()) 
+				<< ": time = " << rho_end_time - rho_start_time << " seconds" << std::endl;
 		}
-		else std::cout << "thread " + thread_num_str + ": probably prime\n";
+		else strstream << "thread " << thread_num << ": probably prime" << std::endl;
+
+		std::cout << strstream.str();
 	}
 	
 	delete[] random; 

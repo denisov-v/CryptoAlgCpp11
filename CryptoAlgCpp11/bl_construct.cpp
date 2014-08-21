@@ -1,4 +1,5 @@
 #include "biglong.h"
+#include <utility>
 
 namespace blong
 {
@@ -16,18 +17,23 @@ namespace blong
 		from_string(hex_string);
 	}
 
-	biglong::biglong(UNSIGINT l)
+	biglong::biglong(UNSIGINT num)
 	{
 		do
 		{
-			value.push_back(l & REM_MASK);
-			l >>= BASE_POWER;
-		} while (l > 0);
+			value.push_back(num & REM_MASK);
+			num >>= BASE_POWER;
+		} while (num > 0);
 	}
 
-	biglong::biglong(const biglong& bl)
+	biglong::biglong(const biglong& source)
 	{
-		value = bl.value;
+		value = source.value;		
+	}
+
+	biglong::biglong(biglong&& source)
+	{
+		value = move(source.value);
 	}
 
 	biglong::biglong(const unsigned char* raw_bytes, const size_t length)
@@ -58,14 +64,26 @@ namespace blong
 		return *this;
 	}
 
-	biglong& biglong::operator=(UNSIGINT l)
+	biglong& biglong::operator=(UNSIGINT num)
 	{
 		value.clear();
 		do
 		{
-			value.push_back(l & REM_MASK);
-			l >>= BASE_POWER;
-		} while (l > 0);
+			value.push_back(num & REM_MASK);
+			num >>= BASE_POWER;
+		} while (num > 0);
+		return *this;
+	}
+
+	biglong& biglong::operator=(const biglong& source)
+	{
+		value = source.value;
+		return *this;
+	}
+
+	biglong& biglong::operator=(biglong&& source)
+	{
+		value = move(source.value);
 		return *this;
 	}
 }

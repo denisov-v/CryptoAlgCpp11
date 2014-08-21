@@ -37,12 +37,15 @@ namespace blong
 
 		biglong();
 		explicit biglong(const std::string& hex_string);
-		explicit biglong(UNSIGINT l);
-		biglong(const biglong& bl);
+		explicit biglong(UNSIGINT num);
+		biglong(const biglong& source);
+		biglong(biglong&& source);
 		biglong(const unsigned char* raw_bytes, const size_t length);
 
 		biglong& operator=(const std::string& hex_string);
-		biglong& operator=(UNSIGINT l);
+		biglong& operator=(UNSIGINT num);
+		biglong& operator=(const biglong& source);
+		biglong& operator=(biglong&& source);
 
 		bool operator==(const biglong& right_op) const;
 		bool operator!=(const biglong& right_op) const;

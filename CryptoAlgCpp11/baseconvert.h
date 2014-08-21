@@ -241,7 +241,7 @@ namespace util
 		for (size_t i = 0; i < value.length(); ++i)
 		{
 			result *= numberBase;
-			int c = baseDigits.find(value[i]);
+			size_t c = baseDigits.find(value[i]);
 			if (c == std::string::npos)
 				throw std::runtime_error("Invalid character");
 
@@ -312,7 +312,7 @@ namespace util
 	{
 		std::string hex;
 		int i;
-		for(i = bin.length()-4; i>=0; i-=4)
+		for(i = static_cast<int>(bin.length())-4; i>=0; i-=4)
 			hex = bin_value_to_hex_char(bin.substr(i,4)) + hex;
 		if(i > -4)
 			hex = bin_value_to_hex_char(bin.substr(0,-i+4)) + hex;
