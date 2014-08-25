@@ -47,24 +47,24 @@ namespace blong
 		biglong& operator=(const biglong& source);
 		biglong& operator=(biglong&& source);
 
-		bool operator==(const biglong& right_op) const;
-		bool operator!=(const biglong& right_op) const;
-		bool operator<(const biglong& right_op) const;
-		bool operator<=(const biglong& right_op) const;
-		bool operator>(const biglong& right_op) const;
-		bool operator>=(const biglong& right_op) const;
+		bool operator==(const biglong& rhs) const;
+		bool operator!=(const biglong& rhs) const;
+		bool operator<(const biglong& rhs) const;
+		bool operator<=(const biglong& rhs) const;
+		bool operator>(const biglong& rhs) const;
+		bool operator>=(const biglong& rhs) const;
 
 		biglong& operator++();
-		biglong& operator+=(const biglong& right_op);
+		biglong& operator+=(const biglong& rhs);
 
-		biglong operator+(const biglong& right_op) const;
-		biglong operator+(UNSIGINT right_op) const;		
-		biglong operator*(const biglong& right_op) const;
-		biglong operator*(SHORT_UNSIGINT right_op) const;
-		biglong operator*(UNSIGINT right_op) const;
+		biglong operator+(const biglong& rhs) const;
+		biglong operator+(UNSIGINT rhs) const;		
+		biglong operator*(const biglong& rhs) const;
+		biglong operator*(SHORT_UNSIGINT rhs) const;
+		biglong operator*(UNSIGINT rhs) const;
 
-		biglong div(const biglong& right_op, biglong& quot) const;
-		biglong trunc_sub(const biglong& right_op) const;
+		biglong div(const biglong& rhs, biglong& quot) const;
+		biglong trunc_sub(const biglong& rhs) const;
 		biglong power_mod(const biglong& power, const biglong& modulo) const;
 
 		static biglong get_random(const biglong& max);

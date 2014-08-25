@@ -2,24 +2,24 @@
 
 namespace blong
 {
-	biglong biglong::div(const biglong& right_op, biglong& quot) const
+	biglong biglong::div(const biglong& rhs, biglong& quot) const
 	{
-		if(right_op.value.back() == 0)
+		if(rhs.value.back() == 0)
 			throw;
 
-		if(*this < right_op)
+		if(*this < rhs)
 		{
 			quot = 0;
 			return *this;
 		}
 
-		if(right_op.value.size()==1)
+		if(rhs.value.size()==1)
 		{
 			quot.value.clear();
 			quot.value.resize(value.size(),0);
 
 			UNSIGINT r = 0;
-			UNSIGINT v = right_op.value.back();
+			UNSIGINT v = rhs.value.back();
 			for(SIGINT i=value.size()-1; i >=0; --i)
 			{
 				UNSIGINT temp1 = r*BASE;
@@ -40,15 +40,15 @@ namespace blong
 		}
 
 		// else...
-		SIGINT n = right_op.value.size();
+		SIGINT n = rhs.value.size();
 		SIGINT m = value.size()-n;
 
 		quot.value.clear();
 		quot.value.resize(m+1,0);
 
-		UNSIGINT norm = static_cast<UNSIGINT>(BASE/(right_op.value.back()+1));
+		UNSIGINT norm = static_cast<UNSIGINT>(BASE/(rhs.value.back()+1));
 		biglong left = *this * norm;
-		biglong right = right_op * norm;
+		biglong right = rhs * norm;
 
 		if(left.value.size()-n==m)
 			left.value.push_back(0);

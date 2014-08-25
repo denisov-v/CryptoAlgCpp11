@@ -3,9 +3,9 @@
 namespace blong
 {
 	//truncated subtraction
-	biglong biglong::trunc_sub(const biglong& right_op) const
+	biglong biglong::trunc_sub(const biglong& rhs) const
 	{
-		if(*this <= right_op)
+		if(*this <= rhs)
 			return biglong(0);
 
 		 biglong result;
@@ -14,8 +14,8 @@ namespace blong
 		SIGINT borrow = 0;
 		for (size_t i = 0; i < result.value.size(); ++i)
 		{
-			SIGINT temp = static_cast<SIGINT>(value[i]) - (i < right_op.value.size() ?
-				static_cast<SIGINT>(right_op.value[i]) : 0) + borrow;
+			SIGINT temp = static_cast<SIGINT>(value[i]) - (i < rhs.value.size() ?
+				static_cast<SIGINT>(rhs.value[i]) : 0) + borrow;
 			if(temp < 0)
 			{
 				temp+=BASE;

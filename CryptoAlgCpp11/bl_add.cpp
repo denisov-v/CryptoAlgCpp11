@@ -19,17 +19,17 @@ namespace blong
 		return *this;
 	}
 
-	biglong biglong::operator+(const biglong& right_op) const
+	biglong biglong::operator+(const biglong& rhs) const
 	{
 		biglong result;
-		size_t max_size = value.size() > right_op.value.size() ? value.size() : right_op.value.size();
+		size_t max_size = value.size() > rhs.value.size() ? value.size() : rhs.value.size();
 		result.value.resize(max_size, 0);
 	
 		UNSIGINT carry_prev = 0;
 		for (size_t i = 0; i < result.value.size(); ++i)
 		{
 			result.value[i] = (i < value.size() ? value[i] : 0) + 
-				(i < right_op.value.size() ? right_op.value[i] : 0) + carry_prev;
+				(i < rhs.value.size() ? rhs.value[i] : 0) + carry_prev;
 
 			carry_prev = 0;
 
@@ -45,22 +45,22 @@ namespace blong
 		return result;
 	}
 
-	biglong biglong::operator+(UNSIGINT right_op) const
+	biglong biglong::operator+(UNSIGINT rhs) const
 	{
-		biglong right_long = biglong(right_op);
+		biglong right_long = biglong(rhs);
 		return (*this)+right_long;
 	}
 
-	biglong& biglong::operator+=(const biglong& right_op)
+	biglong& biglong::operator+=(const biglong& rhs)
 	{
-		size_t max_size = value.size() > right_op.value.size() ? value.size() : right_op.value.size();
+		size_t max_size = value.size() > rhs.value.size() ? value.size() : rhs.value.size();
 		value.resize(max_size, 0);
 	
 		UNSIGINT carry_prev = 0;
 		for (size_t i = 0; i < value.size(); ++i)
 		{
 			value[i] = (i < value.size() ? value[i] : 0) + 
-				(i < right_op.value.size() ? right_op.value[i] : 0) + carry_prev;
+				(i < rhs.value.size() ? rhs.value[i] : 0) + carry_prev;
 
 			if (value[i] >= BASE)
 			{

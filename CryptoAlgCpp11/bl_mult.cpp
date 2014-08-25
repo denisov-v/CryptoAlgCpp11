@@ -3,18 +3,18 @@
 
 namespace blong
 {
-	biglong biglong::operator*(const biglong& right_op) const
+	biglong biglong::operator*(const biglong& rhs) const
 	{
 		biglong result;
-		result.value.resize(value.size()+right_op.value.size(),0);
+		result.value.resize(value.size()+rhs.value.size(),0);
 
-		for(size_t j=0; j < right_op.value.size(); ++j)
+		for(size_t j=0; j < rhs.value.size(); ++j)
 		{
 			UNSIGINT carry_prev = 0;	
 			size_t i=0;
 			for(i; i < value.size(); ++i)	
 			{			
-				UNSIGINT temp_prod = value[i]*right_op.value[j];
+				UNSIGINT temp_prod = value[i]*rhs.value[j];
 
 				UNSIGINT carry_curr = 0;
 
@@ -68,7 +68,7 @@ namespace blong
 		return result;
 	}
 
-	biglong biglong::operator*(SHORT_UNSIGINT right_op) const
+	biglong biglong::operator*(SHORT_UNSIGINT rhs) const
 	{
 		biglong result;
 		result.value.resize(value.size(),0);	
@@ -77,7 +77,7 @@ namespace blong
 		size_t i=0;
 		for(i; i < value.size(); ++i)	
 		{
-			UNSIGINT temp_prod = value[i]*right_op;
+			UNSIGINT temp_prod = value[i]*rhs;
 		
 			UNSIGINT carry_curr = 0;
 		
@@ -128,9 +128,9 @@ namespace blong
 		return result;
 	}
 
-	biglong biglong::operator*(UNSIGINT right_op) const
+	biglong biglong::operator*(UNSIGINT rhs) const
 	{
-		biglong right_long = biglong(right_op);
+		biglong right_long = biglong(rhs);
 		return (*this)*right_long;
 	}
 

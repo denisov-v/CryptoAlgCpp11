@@ -77,6 +77,8 @@ namespace blong
 
 	biglong& biglong::operator=(const biglong& source)
 	{
+		if (this == &source)
+			return *this;
 		value = source.value;
 		return *this;
 	}
