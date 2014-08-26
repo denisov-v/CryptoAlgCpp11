@@ -26,9 +26,8 @@ namespace blong
 		} while (num > 0);
 	}
 
-	biglong::biglong(const biglong& source)
-	{
-		value = source.value;		
+	biglong::biglong(const biglong& source) : value(source.value)
+	{		
 	}
 
 	biglong::biglong(biglong&& source)
