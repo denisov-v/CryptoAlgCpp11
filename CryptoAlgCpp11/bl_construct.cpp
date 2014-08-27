@@ -26,10 +26,6 @@ namespace blong
 		} while (num > 0);
 	}
 
-	biglong::biglong(const biglong& source) : value(source.value)
-	{		
-	}
-
 	biglong::biglong(biglong&& source)
 	{
 		value = move(source.value);
@@ -71,14 +67,6 @@ namespace blong
 			value.push_back(num & REM_MASK);
 			num >>= BASE_POWER;
 		} while (num > 0);
-		return *this;
-	}
-
-	biglong& biglong::operator=(const biglong& source)
-	{
-		if (this == &source)
-			return *this;
-		value = source.value;
 		return *this;
 	}
 
