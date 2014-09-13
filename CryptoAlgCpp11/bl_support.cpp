@@ -33,11 +33,10 @@ namespace blong
 
 	void biglong::remove_leading_zeros()
 	{
-		for (SIGINT i = value.size() - 1; i > 0; --i)
-		{
-			if (value[i] != 0) return;
-			value.erase(value.begin() + i);
-		}
+		auto i = value.crbegin();
+		for (i; i != value.crend(); ++i)		
+			if (*i != 0) break;					
+		value.erase(i.base(), value.cend());
 	}
 
 	void biglong::from_string(const std::string& hex_string)
@@ -59,9 +58,9 @@ namespace blong
 	std::string biglong::to_string() const
 	{
 		std::stringstream strstream;
-		strstream << std::hex << value.back();
-		for (SIGINT i = value.size() - 2; i >= 0; --i)
-			strstream << std::setfill('0') << std::setw(HEX_DIGITS) << value[i];
+		strstream << std::hex;
+		for (auto i = value.crbegin(); i != value.crend(); ++i)
+			strstream << std::setfill('0') << std::setw(HEX_DIGITS) << *i;
 		return strstream.str();
 	}
 

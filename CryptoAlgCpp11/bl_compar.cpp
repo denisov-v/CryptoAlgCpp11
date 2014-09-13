@@ -6,8 +6,8 @@ namespace blong
 	{
 		if (value.size() != rhs.value.size())
 			return false;
-		for (SIGINT i = value.size() - 1; i >= 0; --i)
-			if (value[i] != rhs.value[i])
+		for (auto i = value.crbegin(), j = rhs.value.crbegin(); i != value.crend(); ++i, ++j)
+			if (*i != *j)
 				return false;    
 		return true;
 	}
@@ -16,8 +16,8 @@ namespace blong
 	{
 		if (value.size() != rhs.value.size())
 			return true;
-		for (SIGINT i = value.size() - 1; i >= 0; --i)
-			if (value[i] != rhs.value[i])
+		for (auto i = value.crbegin(), j = rhs.value.crbegin(); i != value.crend(); ++i, ++j)
+			if (*i != *j)
 				return true; 
 		return false;
 	}
@@ -29,11 +29,11 @@ namespace blong
 		if (value.size() < rhs.value.size())
 			return true;
 
-		for (SIGINT i = value.size() - 1; i >= 0; --i)
+		for (auto i = value.crbegin(), j = rhs.value.crbegin(); i != value.crend(); ++i, ++j)
 		{
-			if (value[i] < rhs.value[i])
+			if (*i < *j)
 				return true;
-			if (value[i] > rhs.value[i])
+			if (*i > *j)
 				return false;
 		}
 		return false;
@@ -46,11 +46,11 @@ namespace blong
 		if (value.size() < rhs.value.size())
 			return true;
 
-		for (SIGINT i = value.size() - 1; i >= 0; --i)
+		for (auto i = value.crbegin(), j = rhs.value.crbegin(); i != value.crend(); ++i, ++j)
 		{
-			if (value[i] < rhs.value[i])
+			if (*i < *j)
 				return true;
-			if (value[i] > rhs.value[i])
+			if (*i > *j)
 				return false;
 		}
 		return true;
@@ -63,11 +63,11 @@ namespace blong
 		if (value.size() < rhs.value.size())
 			return false;
 
-		for (SIGINT i = value.size() - 1; i >= 0; --i)
+		for (auto i = value.crbegin(), j = rhs.value.crbegin(); i != value.crend(); ++i, ++j)
 		{
-			if (value[i] < rhs.value[i])
+			if (*i < *j)
 				return false;
-			if (value[i] > rhs.value[i])
+			if (*i > *j)
 				return true;
 		}
 		return false;
@@ -80,11 +80,11 @@ namespace blong
 		if (value.size() < rhs.value.size())
 			return false;
 
-		for (SIGINT i = value.size() - 1; i >= 0; --i)
+		for (auto i = value.crbegin(), j = rhs.value.crbegin(); i != value.crend(); ++i, ++j)
 		{
-			if (value[i] < rhs.value[i])
+			if (*i < *j)
 				return false;
-			if (value[i] > rhs.value[i])
+			if (*i > *j)
 				return true;
 		}
 		return true;
