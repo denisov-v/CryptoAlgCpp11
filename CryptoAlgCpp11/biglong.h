@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <algorithm>
 
 #ifndef BIGLONG
 #define BIGLONG
@@ -30,7 +31,7 @@ namespace blong
 		friend std::ostream& operator<<(std::ostream &stream, const biglong &n);
 		friend std::istream& operator>>(std::istream &stream, biglong &n);
 
-		public:
+	public:
 		static const biglong zero;
 		static const biglong one;
 		static const biglong two;
@@ -73,7 +74,9 @@ namespace blong
 		size_t get_raw_bytes(unsigned char*& raw_bytes, const size_t min_length) const;
 		bool isOdd() const;
 
-		private:    
+	private:
+		biglong(size_t reserved_size, SHORT_UNSIGINT default_value);
+
 		void normalize();
 		void remove_leading_zeros();
 		void from_string(const std::string& hex_string);		

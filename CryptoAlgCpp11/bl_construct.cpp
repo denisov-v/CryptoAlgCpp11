@@ -75,4 +75,9 @@ namespace blong
 		value = move(source.value);
 		return *this;
 	}
+
+	biglong::biglong(size_t reserved_size, SHORT_UNSIGINT default_value) 
+		: value(reserved_size, default_value)
+	{
+	}
 }

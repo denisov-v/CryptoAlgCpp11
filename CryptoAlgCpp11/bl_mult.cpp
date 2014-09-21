@@ -5,8 +5,7 @@ namespace blong
 {
 	biglong biglong::operator*(const biglong& rhs) const
 	{
-		biglong result;
-		result.value.resize(value.size()+rhs.value.size(),0);
+		biglong result(value.size()+rhs.value.size(),0);
 
 		for(size_t j=0; j < rhs.value.size(); ++j)
 		{
@@ -70,8 +69,7 @@ namespace blong
 
 	biglong biglong::operator*(SHORT_UNSIGINT rhs) const
 	{
-		biglong result;
-		result.value.resize(value.size(),0);	
+		biglong result(value.size(), 0);	
 
 		UNSIGINT carry_prev = 0;	
 		size_t i=0;

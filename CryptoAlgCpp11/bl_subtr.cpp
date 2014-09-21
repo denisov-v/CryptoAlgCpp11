@@ -8,8 +8,7 @@ namespace blong
 		if(*this <= rhs)
 			return biglong(0);
 
-		 biglong result;
-		 result.value.resize(value.size(), 0);
+		 biglong result(value.size(), 0);
 	
 		SIGINT borrow = 0;
 		for (size_t i = 0; i < result.value.size(); ++i)

@@ -5,11 +5,12 @@ namespace blong
 	biglong& biglong::operator++()
 	{
 		++value[0];
-		for(size_t i=0; value[i]>=BASE && i < value.size(); ++i)
+		auto last_index = value.end() - value.begin() - 1;
+		for(auto i = value.begin(); i != value.end() && *i >= BASE; ++i)
 		{
-			value[i]=0;
-			if(i < value.size()-1)
-				++value[i+1];
+			*i = 0;
+			if(i - value.begin() < last_index)
+				++(*(i+1));
 			else 
 			{
 				value.push_back(1);
@@ -21,9 +22,8 @@ namespace blong
 
 	biglong biglong::operator+(const biglong& rhs) const
 	{
-		biglong result;
-		size_t max_size = value.size() > rhs.value.size() ? value.size() : rhs.value.size();
-		result.value.resize(max_size, 0);
+		size_t max_size = std::max(value.size(), rhs.value.size());
+		biglong result(max_size, 0);
 	
 		UNSIGINT carry_prev = 0;
 		for (size_t i = 0; i < result.value.size(); ++i)
@@ -39,7 +39,7 @@ namespace blong
 				result.value[i] &= REM_MASK;	
 			}
 		}
-		if(carry_prev!=0)
+		if(carry_prev != 0)
 			result.value.push_back(carry_prev);
 
 		return result;
