@@ -1,10 +1,10 @@
+#ifndef BIGLONG
+#define BIGLONG
+
 #include <iostream>
 #include <vector>
 #include <string>
 #include <algorithm>
-
-#ifndef BIGLONG
-#define BIGLONG
 
 namespace blong
 {
