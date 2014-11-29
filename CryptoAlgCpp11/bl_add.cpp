@@ -30,13 +30,15 @@ namespace blong
 		{
 			result.value[i] = (i < value.size() ? value[i] : 0) + 
 				(i < rhs.value.size() ? rhs.value[i] : 0) + carry_prev;
-
-			carry_prev = 0;
-
+			
 			if (result.value[i] >= BASE)
 			{
 				carry_prev = result.value[i] >> BASE_POWER;
 				result.value[i] &= REM_MASK;	
+			}
+			else
+			{
+				carry_prev = 0;
 			}
 		}
 		if(carry_prev != 0)
@@ -55,22 +57,37 @@ namespace blong
 	{
 		size_t max_size = value.size() > rhs.value.size() ? value.size() : rhs.value.size();
 		value.resize(max_size, 0);
-	
+
 		UNSIGINT carry_prev = 0;
-		for (size_t i = 0; i < value.size(); ++i)
+		for (size_t i = 0; i < rhs.value.size(); ++i)
 		{
-			value[i] = (i < value.size() ? value[i] : 0) + 
-				(i < rhs.value.size() ? rhs.value[i] : 0) + carry_prev;
+			value[i] += rhs.value[i] + carry_prev;
 
 			if (value[i] >= BASE)
 			{
 				carry_prev = value[i] >> BASE_POWER;
-				value[i] &= REM_MASK;	
+				value[i] &= REM_MASK;
+			}
+			else
+			{
+				carry_prev = 0;
 			}
 		}
-		if(carry_prev!=0)
-			value.push_back(carry_prev);
+		
+		for (size_t i = rhs.value.size(); carry_prev != 0 && i < value.size(); ++i)
+		{
+			value[i] += carry_prev;
 
+			if (value[i] >= BASE)
+			{
+				carry_prev = value[i] >> BASE_POWER;
+				value[i] &= REM_MASK;
+			}
+			else carry_prev = 0;
+		}
+		if (carry_prev != 0)
+			value.push_back(carry_prev);
+		
 		return *this;
 	}
 }
