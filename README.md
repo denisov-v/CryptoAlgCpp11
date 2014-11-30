@@ -7,8 +7,8 @@ To do:
 
 1) checkout repo https://github.com/denisov-v/biglong
 
-2) copy header files 'biglong.h' and 'baseconvert.h' to 'include' folder
+2) build necessary configurations
 
-3) build necessary configurations
+3) copy header files 'biglong.h' and 'baseconvert.h' to CryptoAlgCpp11 'include' folder
 
-4) copy *.lib files to 'lib' folder
+4) copy *.lib files to CryptoAlgCpp11 'lib' folder
