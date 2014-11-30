@@ -76,8 +76,8 @@ biglong RhoPollard(const biglong& n, const biglong& coeff, const biglong& seed)
 
 int main()
 {
-	biglong n = biglong(util::dec_to_hex_str("8758181640058340640277655505359"));
-	std::cout << "n = " << util::hex_to_dec_str(n.to_string()) << std::endl;
+	biglong n = biglong(baseconvert::dec_to_hex_str("8758181640058340640277655505359"));
+	std::cout << "n = " << baseconvert::hex_to_dec_str(n.to_string()) << std::endl;
 
 	/*std::string n_str;
 	std::cout << "n=";
@@ -108,7 +108,7 @@ int main()
 			biglong divider = RhoPollard(n, random[thread_num+1], random[thread_num+2]);
 			double rho_end_time = omp_get_wtime();
 
-			strstream << "thread " << thread_num << ": divider = " << util::hex_to_dec_str(divider.to_string()) 
+			strstream << "thread " << thread_num << ": divider = " << baseconvert::hex_to_dec_str(divider.to_string())
 				<< ": time = " << rho_end_time - rho_start_time << " seconds" << std::endl;
 		}
 		else strstream << "thread " << thread_num << ": probably prime" << std::endl;

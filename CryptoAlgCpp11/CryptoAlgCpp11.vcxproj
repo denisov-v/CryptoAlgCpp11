@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="baseconvert.cpp" />
     <ClCompile Include="bl_add.cpp" />
     <ClCompile Include="bl_compar.cpp" />
     <ClCompile Include="bl_construct.cpp" />
